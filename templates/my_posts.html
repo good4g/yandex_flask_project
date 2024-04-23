@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <div class="note">
+        <p><h3 style="color: #353A40; text-align: center">Посты пользователя: {{ current_user.fio }}</h3></p>
+    </div>
+    <div class="album py-5 bg-body-tertiary">
+    <div class="container">
+      {% for post in posts %}
+      <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
+        <div class="col">
+
+          <div class="card shadow-sm">
+              {% if post.photo %}
+                {% set photo = open('static/img/test_photo' + str(post.id) + '.png', 'wb') %}
+                {% set photo = photo.write(post.photo) %}
+                <img src="{{ url_for('static', filename='img/test_photo' + str(post.id) + '.png')}}">
+              {% endif %}
+            <div class="card-body">
+                <div><h1>{{post.title}}</h1></div>
+              <p class="card-text">{{ post.description }}</p>
+              <div class="d-flex justify-content-between align-items-center">
+
+                    <div class="btn-group">
+                        <a href="/view_post/{{post.id}}" type="button" class="btn btn-sm btn-outline-secondary">Посмотреть</a>
+                        {% if post.id_author == current_user.id_user%}
+                          <a href="/edit_post/{{post.id}}"><button type="button" class="btn btn-sm btn-outline-secondary">Редактировать</button></a>
+                          <a href="/del_post/{{post.id}}"><button type="button" class="btn btn-sm btn-outline-secondary" >Удалить</button></a>
+                        {% endif %}
+
+                    </div>
+
+
+                <small class="text-body-secondary">Author: {{ post.author }}</small>
+                <small class="text-body-secondary">{{post.time_pub}}</small>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+      {% endfor %}
+
+    </div>
+  </div>
+{% endblock %}

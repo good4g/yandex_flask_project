@@ -1,0 +1,70 @@
+{% extends "base.html" %}
+{% block content %}
+<link href="{{ get_url }}" rel="stylesheet" type="text/css">
+<form action="" method="post" enctype="multipart/form-data">
+    {{form.csrf_token}}
+    <div class="container register-form" >
+        <div class="form">
+            <div class="note">
+                <p><h3 style="color: #353A40; padding-top: 1%">Регистрация</h3></p>
+            </div>
+            <div class="form-content">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            {{ form.name(class="form-control", placeholder="Введите имя") }}
+                            {% for error in form.name.errors %}
+                                <div class="alert alert-danger" role="alert">
+                                    {{ error }}
+                                </div>
+                            {% endfor %}
+                        </div>
+                        <div class="form-group">
+                            {{ form.surname(class="form-control", placeholder="Введите фамилию") }}
+                            {% for error in form.surname.errors %}
+                                <div class="alert alert-danger" role="alert">
+                                    {{ error }}
+                                </div>
+                            {% endfor %}
+                        </div>
+                        <div class="form-group">
+                            {{ form.email(class="form-control", placeholder="Введите ваш email") }}
+                            {% for error in form.email.errors %}
+                                <div class="alert alert-danger" role="alert">
+                                    {{ error }}
+                                </div>
+                            {% endfor %}
+                        </div>
+                        <div class="form-group">
+                            {{ form.password(class="form-control", placeholder="Пароль") }}
+                            {% for error in form.password.errors %}
+                                <div class="alert alert-danger" role="alert">
+                                    {{ error }}
+                                </div>
+                            {% endfor %}
+                        </div>
+                        <div class="form-group">
+                            {{ form.repeat_password(class="form-control", placeholder="Повторите пароль") }}
+                            {% for error in form.repeat_password.errors %}
+                                <div class="alert alert-danger" role="alert">
+                                    {{ error }}
+                                </div>
+                            {% endfor %}
+                        </div>
+                        <div class="bt">
+                                {{form.submit(class="btn btn-dark", type="submit",placeholder="Зарегистрироваться")}}
+                        </div>
+                        {% if message %}
+                            <div class="alert alert-danger" role="alert">
+                                {{ message }}
+                            </div>
+                        {%endif%}
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+
+{% endblock %}

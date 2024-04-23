@@ -1,0 +1,9 @@
+{% extends "base.html" %}
+
+{% block content%}
+<div style="text-align: center; padding-top: 5%; margin-top: 2%">
+    NICK: <strong>{{fio}}</strong><br>
+    Количество записей: {{quan}}<br>
+    <a href="/edit_my_data/{{current_user.id_user}}"><button type="button" class="btn btn-dark">Изменить данные о себе</button></a>
+</div>
+{% endblock %}

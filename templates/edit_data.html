@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+
+{% block content %}
+    {{ form.csrf_token }}
+    <form action="" enctype="multipart/form-data">
+
+        <div style="width: 100%; padding-left: 30%; padding-right: 30%; margin-top: 4%">
+            {{form.rename(class="form-control")}}
+            {{form.re_surname(class="form-control")}}
+            {{form.update(class="btn btn-dark", value="Изменить", style="width: 100%")}}
+        </div>
+    </form>
+{% endblock %}

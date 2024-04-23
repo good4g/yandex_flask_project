@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <form action="" enctype="multipart/form-data" method="post">
+        {{ form.csrf_token }}
+        <div style="text-align:center; margin-top:3%">
+          <h1>{{post.title}}</h1>
+          <div style="font-size: 30px; width: 60%; margin: auto; background-color: #f5f5f5; ">
+            <h3 style="text-align: left; padding-left: 1%; padding-bottom: 2%"> Description: {{post.description}}</h3>
+            <p style="text-align: left; padding-left: 1%">{{post.content}}</p>
+          </div>
+          <div style="width: 60%; margin:auto;">
+              {% if current_user.is_authenticated%}
+                  {{ form.comment(class="form-control", type="button") }}
+                  <div style="padding-top: 1%">{{ form.submit(class="btn btn-dark", value="Опубликовать комментарий") }}</div>
+              {% endif %}
+              {% if message %}
+                  <div class="alert alert-success" role="alert">
+                      {{ message }}
+                  </div>
+              {% endif %}
+              {% if comment %}
+                  <div style="padding-top: 2%">
+                    <table class="table">
+                      <thead>
+                        <tr>
+                          <th scope="col">Автор</th>
+                          <th scope="col">Комментарий</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                      {%for data in comment %}
+                        <tr>
+                          <th scope="row">{{ data.fio_author}}</th>
+
+                          <td>{{ data.text_comment }}</td>
+                          {% if current_user.id_user == data.id_author %}
+                          <td><a href="/del_comment/{{data.id}}/{{data.id_post}}" class="btn btn-danger"> Удалить </a></td>
+                          {% endif %}
+                      {% endfor %}
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+              {% endif %}
+          </div>
+        </div>
+    </form>
+
+{% endblock %}
